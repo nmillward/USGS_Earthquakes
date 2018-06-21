@@ -18,7 +18,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     public void showQuakes(List<Quake> quakes) {
-        
+
     }
 
     @Override
@@ -29,6 +29,11 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
     @Override
     public void showQuakeDetails(Quake quake) {
 
+    }
+
+    @Override
+    public void showLoadingIndicator() {
+        
     }
 
     @Override

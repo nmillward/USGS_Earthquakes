@@ -15,12 +15,15 @@ public interface QuakesContract {
         void showQuakes(List<Quake> quakes);
         void showErrorMessage(String error);
         void showQuakeDetails(Quake quake);
+        void showLoadingIndicator();
         void stopLoadingIndicator();
         void clearQuakes();
 
     }
 
     interface Presenter {
+
+        void loadQuakes();
 
     }
 
