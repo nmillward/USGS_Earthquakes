@@ -33,7 +33,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     public void showLoadingIndicator() {
-        
+
     }
 
     @Override
