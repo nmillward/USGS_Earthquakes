@@ -23,7 +23,7 @@ public interface QuakesContract {
 
     interface Presenter {
 
-        void loadQuakes();
+        void loadQuakes(boolean remoteRequired);
 
     }
 
