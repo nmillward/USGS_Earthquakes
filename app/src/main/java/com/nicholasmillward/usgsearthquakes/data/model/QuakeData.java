@@ -10,6 +10,12 @@ public class QuakeData {
     private String location;
     private long time;
 
+    public QuakeData(float mag, String location, long time) {
+        this.mag = mag;
+        this.location = location;
+        this.time = time;
+    }
+
     public float getMag() {
         return mag;
     }

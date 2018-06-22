@@ -8,6 +8,9 @@ public class Quake {
 
     private QuakeData quakeData;
 
+    public Quake(QuakeData quakeData) {
+        this.quakeData = quakeData;
+    }
 
     public QuakeData getQuakeData() {
         return quakeData;
