@@ -22,9 +22,9 @@ public class QuakesAdapter extends RecyclerView.Adapter<QuakesAdapter.QuakesView
     private ItemClickListener itemClickListener;
     private List<Quake> quakes;
 
-    public QuakesAdapter(ItemClickListener itemClickListener, List<Quake> quakes) {
-        this.itemClickListener = itemClickListener;
+    public QuakesAdapter(List<Quake> quakes, ItemClickListener itemClickListener) {
         this.quakes = quakes;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
