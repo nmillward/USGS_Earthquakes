@@ -5,4 +5,15 @@ package com.nicholasmillward.usgsearthquakes.data.model;
  */
 
 public class Quake {
+
+    private QuakeData quakeData;
+
+
+    public QuakeData getQuakeData() {
+        return quakeData;
+    }
+
+    public void setQuakeData(QuakeData quakeData) {
+        this.quakeData = quakeData;
+    }
 }
