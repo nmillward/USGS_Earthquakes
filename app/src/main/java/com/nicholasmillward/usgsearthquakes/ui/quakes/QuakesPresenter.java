@@ -11,5 +11,5 @@ public class QuakesPresenter implements QuakesContract.Presenter {
     public void loadQuakes(boolean remoteRequired) {
 
     }
-    
+
 }
