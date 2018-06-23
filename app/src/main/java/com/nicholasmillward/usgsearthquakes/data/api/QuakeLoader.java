@@ -22,8 +22,7 @@ public class QuakeLoader extends AsyncTaskLoader<List<Quake>> {
 
     @Override
     protected void onStartLoading() {
-
-        //TODO: check for cache first
+        
         if (quakes != null) {
             deliverResult(quakes);
         } else {
