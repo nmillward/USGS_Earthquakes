@@ -54,6 +54,15 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
         }
     }
 
+    @Override
+    public void handleNetworkLoss() {
+        if (quakes != null) {
+            view.showQuakes(quakes);
+        }
+        view.stopLoadingIndicator();
+        view.showErrorMessage("No network connection");
+    }
+
     public void itemClicked(Quake quake) {
         view.showQuakeDetails(quake);
     }

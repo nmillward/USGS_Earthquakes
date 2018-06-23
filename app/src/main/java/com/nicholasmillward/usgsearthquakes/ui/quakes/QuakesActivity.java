@@ -15,6 +15,7 @@ import com.nicholasmillward.usgsearthquakes.R;
 import com.nicholasmillward.usgsearthquakes.data.api.QuakeLoader;
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 import com.nicholasmillward.usgsearthquakes.utils.ItemClickListener;
+import com.nicholasmillward.usgsearthquakes.utils.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,9 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         setupPresenter();
         setupWidgets();
 
-        // TODO: check for network connection status
+        if (!isOnline()) {
+            presenter.handleNetworkLoss();
+        }
 
         // TODO: check savedInstanceState
     }
@@ -84,6 +87,10 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     }
 
+    private boolean isOnline() {
+        return NetworkUtils.isNetworkAvailable(this);
+    }
+
     @Override
     public void showQuakes(List<Quake> quakes) {
         adapter.replaceData(quakes);
@@ -95,7 +102,11 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
                 .setAction("RETRY", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        presenter.loadQuakes(true);
+                        if (isOnline()) {
+                            presenter.loadQuakes(true);
+                        } else {
+                            presenter.handleNetworkLoss();
+                        }
                     }
                 });
         snackbar.getView().setBackgroundResource(android.R.color.holo_red_light);
