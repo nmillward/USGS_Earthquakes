@@ -22,18 +22,18 @@ public class QuakeLoader extends AsyncTaskLoader<List<Quake>> {
 
     @Override
     protected void onStartLoading() {
-        
         if (quakes != null) {
             deliverResult(quakes);
         } else {
             forceLoad();
         }
-
     }
 
     @Override
     public List<Quake> loadInBackground() {
-        return QuakeHttpHandler.fetchQuakeData();
+        List<Quake> data = QuakeHttpHandler.fetchQuakeData();
+        isLoadInBackgroundCanceled();
+        return data;
     }
 
     @Override
