@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.nicholasmillward.usgsearthquakes.R;
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
+import com.nicholasmillward.usgsearthquakes.utils.DateTimeUtils;
 import com.nicholasmillward.usgsearthquakes.utils.ItemClickListener;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class QuakesAdapter extends RecyclerView.Adapter<QuakesAdapter.QuakesView
 
         holder.magnitude.setText((int) quake.getMag());
         holder.location.setText(quake.getLocation());
-        holder.time.setText((int) quake.getTime()); //TODO: Need to convert unix timestamp
+        holder.time.setText(DateTimeUtils.timestampToRelativeTime(quake.getTime()));
 
     }
 
