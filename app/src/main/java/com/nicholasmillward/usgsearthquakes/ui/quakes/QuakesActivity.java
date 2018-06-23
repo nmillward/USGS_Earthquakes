@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.nicholasmillward.usgsearthquakes.R;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class QuakesActivity extends AppCompatActivity implements QuakesContract.View, LoaderManager.LoaderCallbacks<List<Quake>> {
 
+    private static final String TAG = QuakesActivity.class.getSimpleName();
     private static final int QUAKE_LOADER_ID = 1001;
 
     private RecyclerView recyclerView;
@@ -104,7 +106,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     public void onLoadFinished(Loader<List<Quake>> loader, List<Quake> quakeData) {
-
+        Log.d(TAG, quakeData.toString());
     }
 
     @Override

@@ -49,4 +49,14 @@ public class Quake {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "Quake{" +
+                "mag=" + mag +
+                ", location='" + location + '\'' +
+                ", time=" + time +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }
