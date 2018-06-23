@@ -9,7 +9,7 @@ import android.text.format.DateUtils;
 public class DateTimeUtils {
 
     public static String timestampToRelativeTime(long time) {
-        return DateUtils.getRelativeTimeSpanString(time * 1000, System.currentTimeMillis(),
+        return DateUtils.getRelativeTimeSpanString(time, System.currentTimeMillis(),
                 DateUtils.MINUTE_IN_MILLIS).toString();
     }
 
