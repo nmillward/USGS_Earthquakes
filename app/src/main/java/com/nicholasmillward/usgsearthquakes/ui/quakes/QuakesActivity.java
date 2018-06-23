@@ -1,5 +1,7 @@
 package com.nicholasmillward.usgsearthquakes.ui.quakes;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -49,7 +51,8 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
     }
 
     private void setupPresenter() {
-
+        presenter = new QuakesPresenter();
+        presenter.attachView(this);
     }
 
     private void setupWidgets() {
@@ -57,7 +60,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         adapter = new QuakesAdapter(new ArrayList<Quake>(), new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                // TODO: presenter -- itemClicked(view, position)
+                presenter.itemClicked(adapter.getItem(position));
             }
         });
 
@@ -87,7 +90,9 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     public void showQuakeDetails(Quake quake) {
-
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(quake.getUrl()));
+        startActivity(intent);
     }
 
     @Override

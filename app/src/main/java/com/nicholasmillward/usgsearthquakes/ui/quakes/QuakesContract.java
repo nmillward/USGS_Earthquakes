@@ -21,8 +21,9 @@ public interface QuakesContract {
 
     }
 
-    interface Presenter {
+    interface Presenter<T extends View> {
 
+        void attachView(T view);
         void loadQuakes(boolean remoteRequired);
 
     }
