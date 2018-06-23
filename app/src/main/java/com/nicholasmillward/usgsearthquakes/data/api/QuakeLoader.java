@@ -1,7 +1,8 @@
 package com.nicholasmillward.usgsearthquakes.data.api;
 
-import android.content.AsyncTaskLoader;
+
 import android.content.Context;
+import android.support.v4.content.AsyncTaskLoader;
 
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 
