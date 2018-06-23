@@ -6,23 +6,23 @@ package com.nicholasmillward.usgsearthquakes.data.model;
 
 public class Quake {
 
-    private float mag;
+    private double mag;
     private String location;
     private long time;
     private String url;
 
-    public Quake(float mag, String location, long time, String url) {
+    public Quake(double mag, String location, long time, String url) {
         this.mag = mag;
         this.location = location;
         this.time = time;
         this.url = url;
     }
 
-    public float getMag() {
+    public double getMag() {
         return mag;
     }
 
-    public void setMag(float mag) {
+    public void setMag(double mag) {
         this.mag = mag;
     }
 

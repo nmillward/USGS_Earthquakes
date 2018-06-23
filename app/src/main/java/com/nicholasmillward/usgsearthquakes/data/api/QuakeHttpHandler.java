@@ -117,7 +117,7 @@ public class QuakeHttpHandler {
                     JSONObject properties = item.getJSONObject("properties");
 
                     // Get attributes of interest from each 'properties' object
-                    int mag = (int) Math.round(properties.getDouble("mag"));
+                    double mag = properties.getDouble("mag");
                     String location = properties.getString("place");
                     long time = properties.getLong("time");
                     String url = properties.getString("url");

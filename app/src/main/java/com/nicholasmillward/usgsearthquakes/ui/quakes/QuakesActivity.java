@@ -38,6 +38,9 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         recyclerView = findViewById(R.id.rv_quakes);
         refreshLayout = findViewById(R.id.refresh_layout);
 
+        setupPresenter();
+        setupWidgets();
+
         loaderManager = getLoaderManager();
         loaderManager.initLoader(QUAKE_LOADER_ID, null, this);
     }
@@ -107,6 +110,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
     @Override
     public void onLoadFinished(Loader<List<Quake>> loader, List<Quake> quakeData) {
         Log.d(TAG, quakeData.toString());
+        adapter.replaceData(quakeData);
     }
 
     @Override

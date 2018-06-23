@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.nicholasmillward.usgsearthquakes.R;
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 import com.nicholasmillward.usgsearthquakes.utils.DateTimeUtils;
+import com.nicholasmillward.usgsearthquakes.utils.DecimalUtils;
 import com.nicholasmillward.usgsearthquakes.utils.ItemClickListener;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
@@ -50,7 +52,7 @@ public class QuakesAdapter extends RecyclerView.Adapter<QuakesAdapter.QuakesView
 
         Quake quake = quakes.get(position);
 
-        holder.magnitude.setText((int) quake.getMag());
+        holder.magnitude.setText(DecimalUtils.doubleToString(quake.getMag()));
         holder.location.setText(quake.getLocation());
         holder.time.setText(DateTimeUtils.timestampToRelativeTime(quake.getTime()));
 
@@ -75,5 +77,23 @@ public class QuakesAdapter extends RecyclerView.Adapter<QuakesAdapter.QuakesView
             time = itemView.findViewById(R.id.tv_time);
 
         }
+    }
+
+    public void replaceData(List<Quake> quakes) {
+        this.quakes.clear();
+        this.quakes.addAll(quakes);
+        notifyDataSetChanged();
+    }
+
+    public Quake getItem(int position) {
+        if (position < 0 || position >= quakes.size()) {
+            throw new InvalidParameterException("Item no in array");
+        }
+        return quakes.get(position);
+    }
+
+    public void clearData() {
+        quakes.clear();
+        notifyDataSetChanged();
     }
 }
