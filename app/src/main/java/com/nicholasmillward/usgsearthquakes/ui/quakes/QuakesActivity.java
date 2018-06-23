@@ -7,6 +7,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -74,6 +75,9 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        DividerItemDecoration divider = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(divider);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
