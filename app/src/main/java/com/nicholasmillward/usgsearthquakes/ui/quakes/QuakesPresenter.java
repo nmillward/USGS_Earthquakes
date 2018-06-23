@@ -77,6 +77,7 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
     @Override
     public void onLoadFinished(@NonNull Loader<List<Quake>> loader, List<Quake> data) {
         view.stopLoadingIndicator();
+        Log.d("PRESENTER", "ON LOAD FINISHED");
 
         quakes = data;
         if (quakes == null) {
