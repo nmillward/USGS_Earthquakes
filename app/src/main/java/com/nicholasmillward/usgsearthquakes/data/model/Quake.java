@@ -1,22 +1,27 @@
 package com.nicholasmillward.usgsearthquakes.data.model;
 
+import android.util.SparseArray;
+
 /**
  * Created by nmillward on 6/21/18.
  */
 
 public class Quake {
 
-    private QuakeData quakeData;
+    private SparseArray<QuakeData> quakeData;
 
-    public Quake(QuakeData quakeData) {
+    public Quake() {
+    }
+
+    public Quake(SparseArray<QuakeData> quakeData) {
         this.quakeData = quakeData;
     }
 
-    public QuakeData getQuakeData() {
+    public SparseArray<QuakeData> getQuakeData() {
         return quakeData;
     }
 
-    public void setQuakeData(QuakeData quakeData) {
+    public void setQuakeData(SparseArray<QuakeData> quakeData) {
         this.quakeData = quakeData;
     }
 }

@@ -9,11 +9,13 @@ public class QuakeData {
     private float mag;
     private String location;
     private long time;
+    private String url;
 
-    public QuakeData(float mag, String location, long time) {
+    public QuakeData(float mag, String location, long time, String url) {
         this.mag = mag;
         this.location = location;
         this.time = time;
+        this.url = url;
     }
 
     public float getMag() {
@@ -38,5 +40,13 @@ public class QuakeData {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

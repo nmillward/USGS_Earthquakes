@@ -11,7 +11,6 @@ import com.nicholasmillward.usgsearthquakes.R;
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 import com.nicholasmillward.usgsearthquakes.utils.ItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuakesActivity extends AppCompatActivity implements QuakesContract.View {
@@ -30,6 +29,8 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         recyclerView = findViewById(R.id.rv_quakes);
         refreshLayout = findViewById(R.id.refresh_layout);
 
+
+
     }
 
     private void setupPresenter() {
@@ -38,7 +39,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     private void setupWidgets() {
 
-        adapter = new QuakesAdapter(new ArrayList<Quake>(), new ItemClickListener() {
+        adapter = new QuakesAdapter(new Quake(), new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 // TODO: presenter -- itemClicked(view, position)
