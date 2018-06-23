@@ -3,15 +3,10 @@ package com.nicholasmillward.usgsearthquakes.ui.quakes;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.nicholasmillward.usgsearthquakes.R;
@@ -22,7 +17,7 @@ import com.nicholasmillward.usgsearthquakes.utils.ItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuakesActivity extends AppCompatActivity implements QuakesContract.View, LoaderManager.LoaderCallbacks<List<Quake>> {
+public class QuakesActivity extends AppCompatActivity implements QuakesContract.View {
 
     private static final String TAG = QuakesActivity.class.getSimpleName();
     private static final int QUAKE_LOADER_ID = 1001;
@@ -32,7 +27,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     private QuakesAdapter adapter;
     private QuakesPresenter presenter;
-    private LoaderManager loaderManager;
+    private QuakeLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +41,18 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         setupWidgets();
 
         // TODO: check for network connection status
-        loaderManager = getSupportLoaderManager();
-        loaderManager.initLoader(QUAKE_LOADER_ID, null, this);
+
+        // TODO: check savedInstanceState
+
+        presenter.start();
     }
 
+
+
     private void setupPresenter() {
-        presenter = new QuakesPresenter();
+        loader = new QuakeLoader(getApplicationContext());
+
+        presenter = new QuakesPresenter(this, loader, getSupportLoaderManager());
         presenter.attachView(this);
     }
 
@@ -72,7 +73,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // TODO: presenter -- loadQuakes
+                presenter.loadQuakes(true);
             }
         });
 
@@ -80,7 +81,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     public void showQuakes(List<Quake> quakes) {
-
+        adapter.replaceData(quakes);
     }
 
     @Override
@@ -97,34 +98,20 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     public void showLoadingIndicator() {
-
+        if (!refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(true);
+        }
     }
 
     @Override
     public void stopLoadingIndicator() {
-
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void clearQuakes() {
-
-    }
-
-
-    @NonNull
-    @Override
-    public Loader<List<Quake>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new QuakeLoader(this);
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<List<Quake>> loader, List<Quake> data) {
-        Log.d(TAG, data.toString());
-        adapter.replaceData(data);
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<List<Quake>> loader) {
 
     }
 

@@ -41,4 +41,5 @@ public class QuakeLoader extends AsyncTaskLoader<List<Quake>> {
         quakes = data;
         super.deliverResult(data);
     }
+
 }
