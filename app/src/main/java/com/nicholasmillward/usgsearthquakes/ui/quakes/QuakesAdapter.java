@@ -9,8 +9,9 @@ import android.widget.TextView;
 
 import com.nicholasmillward.usgsearthquakes.R;
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
-import com.nicholasmillward.usgsearthquakes.data.model.QuakeData;
 import com.nicholasmillward.usgsearthquakes.utils.ItemClickListener;
+
+import java.util.List;
 
 /**
  * Created by nmillward on 6/22/18.
@@ -19,9 +20,9 @@ import com.nicholasmillward.usgsearthquakes.utils.ItemClickListener;
 public class QuakesAdapter extends RecyclerView.Adapter<QuakesAdapter.QuakesViewHolder> {
 
     private ItemClickListener itemClickListener;
-    private Quake quakes;
+    private List<Quake> quakes;
 
-    public QuakesAdapter(Quake quakes, ItemClickListener itemClickListener) {
+    public QuakesAdapter(List<Quake> quakes, ItemClickListener itemClickListener) {
         this.quakes = quakes;
         this.itemClickListener = itemClickListener;
     }
@@ -46,18 +47,18 @@ public class QuakesAdapter extends RecyclerView.Adapter<QuakesAdapter.QuakesView
     @Override
     public void onBindViewHolder(@NonNull QuakesViewHolder holder, int position) {
 
-        QuakeData quakeData = quakes.getQuakeData().get(position);
+        Quake quake = quakes.get(position);
 
-        holder.magnitude.setText((int) quakeData.getMag());
-        holder.location.setText(quakeData.getLocation());
-        holder.time.setText((int) quakeData.getTime()); //TODO: Need to convert unix timestamp
+        holder.magnitude.setText((int) quake.getMag());
+        holder.location.setText(quake.getLocation());
+        holder.time.setText((int) quake.getTime()); //TODO: Need to convert unix timestamp
 
     }
 
     @Override
     public int getItemCount() {
 
-        return quakes.getQuakeData().size();
+        return quakes.size();
 
     }
 

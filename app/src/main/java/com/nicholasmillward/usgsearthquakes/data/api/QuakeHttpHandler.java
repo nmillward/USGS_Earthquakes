@@ -1,9 +1,6 @@
 package com.nicholasmillward.usgsearthquakes.data.api;
 
-import android.util.SparseArray;
-
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
-import com.nicholasmillward.usgsearthquakes.data.model.QuakeData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +13,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nmillward on 6/22/18.
@@ -25,7 +24,7 @@ public class QuakeHttpHandler {
 
     private static final String QUAKE_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=4.5&limit=100";
 
-    public static Quake fetchQuakeData() {
+    public static List<Quake> fetchQuakeData() {
 
         String jsonResponse = null;
 
@@ -99,14 +98,14 @@ public class QuakeHttpHandler {
         return stringBuilder.toString();
     }
 
-    private static Quake parseJson(String jsonResponse) {
+    private static List<Quake> parseJson(String jsonResponse) {
 
         try {
 
             JSONObject quakeJsonResponse = new JSONObject(jsonResponse);
             JSONArray quakesData = quakeJsonResponse.getJSONArray("features");
 
-            SparseArray<QuakeData> quakeSparseArray = new SparseArray<>();
+            List<Quake> quakes = new ArrayList<>();
 
             try {
                 for (int i = 0; i < quakesData.length(); i++) {
@@ -124,17 +123,16 @@ public class QuakeHttpHandler {
                     String url = properties.getString("url");
 
                     // Put extracted attributes in model object
-                    QuakeData quakeData = new QuakeData(mag, location, time, url);
+                    Quake quake = new Quake(mag, location, time, url);
 
                     // Add objects to array
-                    quakeSparseArray.put(i, quakeData);
-
+                    quakes.add(quake);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            return new Quake(quakeSparseArray);
+            return quakes;
 
         } catch (JSONException e) {
             e.printStackTrace();

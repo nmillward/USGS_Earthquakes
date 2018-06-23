@@ -1,27 +1,52 @@
 package com.nicholasmillward.usgsearthquakes.data.model;
 
-import android.util.SparseArray;
-
 /**
  * Created by nmillward on 6/21/18.
  */
 
 public class Quake {
 
-    private SparseArray<QuakeData> quakeData;
+    private float mag;
+    private String location;
+    private long time;
+    private String url;
 
-    public Quake() {
+    public Quake(float mag, String location, long time, String url) {
+        this.mag = mag;
+        this.location = location;
+        this.time = time;
+        this.url = url;
     }
 
-    public Quake(SparseArray<QuakeData> quakeData) {
-        this.quakeData = quakeData;
+    public float getMag() {
+        return mag;
     }
 
-    public SparseArray<QuakeData> getQuakeData() {
-        return quakeData;
+    public void setMag(float mag) {
+        this.mag = mag;
     }
 
-    public void setQuakeData(SparseArray<QuakeData> quakeData) {
-        this.quakeData = quakeData;
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

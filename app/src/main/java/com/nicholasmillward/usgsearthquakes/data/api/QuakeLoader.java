@@ -5,13 +5,15 @@ import android.content.Context;
 
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 
+import java.util.List;
+
 /**
  * Created by nmillward on 6/22/18.
  */
 
-public class QuakeLoader extends AsyncTaskLoader<Quake> {
+public class QuakeLoader extends AsyncTaskLoader<List<Quake>> {
 
-    private Quake quakes;
+    private List<Quake> quakes;
 
     public QuakeLoader(Context context) {
         super(context);
@@ -27,12 +29,12 @@ public class QuakeLoader extends AsyncTaskLoader<Quake> {
     }
 
     @Override
-    public Quake loadInBackground() {
+    public List<Quake> loadInBackground() {
         return QuakeHttpHandler.fetchQuakeData();
     }
 
     @Override
-    public void deliverResult(Quake data) {
+    public void deliverResult(List<Quake> data) {
         super.deliverResult(data);
     }
 }
