@@ -3,6 +3,8 @@ package com.nicholasmillward.usgsearthquakes.ui.quakes;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,10 +22,10 @@ import java.util.List;
 public class QuakesActivity extends AppCompatActivity implements QuakesContract.View {
 
     private static final String TAG = QuakesActivity.class.getSimpleName();
-    private static final int QUAKE_LOADER_ID = 1001;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
+    private ConstraintLayout constraintLayout;
 
     private QuakesAdapter adapter;
     private QuakesPresenter presenter;
@@ -35,7 +37,8 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         setContentView(R.layout.activity_quakes);
 
         recyclerView = findViewById(R.id.rv_quakes);
-        refreshLayout = findViewById(R.id.refresh_layout);
+        refreshLayout = findViewById(R.id.layout_refresh);
+        constraintLayout = findViewById(R.id.layout_quakesactivity);
 
         setupPresenter();
         setupWidgets();
@@ -43,11 +46,13 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         // TODO: check for network connection status
 
         // TODO: check savedInstanceState
-
-        presenter.start();
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.start();
+    }
 
     private void setupPresenter() {
         loader = new QuakeLoader(getApplicationContext());
@@ -86,7 +91,16 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     public void showErrorMessage(String error) {
-
+        Snackbar snackbar = Snackbar.make(constraintLayout, error, Snackbar.LENGTH_INDEFINITE)
+                .setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        presenter.loadQuakes(true);
+                    }
+                });
+        snackbar.getView().setBackgroundResource(android.R.color.holo_red_light);
+        snackbar.setActionTextColor(getResources().getColor(android.R.color.white));
+        snackbar.show();
     }
 
     @Override
