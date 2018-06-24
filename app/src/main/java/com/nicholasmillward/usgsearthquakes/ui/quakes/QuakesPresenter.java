@@ -28,7 +28,7 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
     private LoaderManager manager;
     private List<Quake> quakes;
 
-    public QuakesPresenter(QuakesContract.View view, QuakeLoader loader, LoaderManager manager) {
+    QuakesPresenter(QuakesContract.View view, QuakeLoader loader, LoaderManager manager) {
 
         this.view = view;
         this.loader = loader;
@@ -51,6 +51,9 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
     public void attachView(QuakesContract.View view) {
 
         this.view = view;
+        if (quakes != null) {
+            view.showQuakes(quakes);
+        }
 
     }
 
@@ -87,15 +90,15 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
 
     }
 
-    public void itemClicked(Quake quake) {
+    void itemClicked(Quake quake) {
 
         view.showQuakeDetails(quake);
 
     }
 
-    public boolean isManagerAvailable() {
+    boolean isManagerAvailable() {
 
-        return manager.getLoader(QUAKE_LOADER_ID) == null;
+        return manager.getLoader(QUAKE_LOADER_ID).isStarted();
 
     }
 
