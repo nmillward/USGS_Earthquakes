@@ -22,7 +22,7 @@ import java.util.List;
 
 public class QuakeHttpHandler {
 
-    private static final String QUAKE_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=4.5&limit=100";
+    private static final String QUAKE_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson";
 
     public static List<Quake> fetchQuakeData() {
 
