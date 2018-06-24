@@ -4,7 +4,6 @@ package com.nicholasmillward.usgsearthquakes.data.api;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 
@@ -25,8 +24,6 @@ public class QuakeLoader extends AsyncTaskLoader<List<Quake>> {
     @Override
     protected void onStartLoading() {
 
-        Log.d("QUAKE LOADER", "ON START LOADING");
-
         if (quakes != null) {
             deliverResult(quakes);
         } else {
@@ -40,7 +37,6 @@ public class QuakeLoader extends AsyncTaskLoader<List<Quake>> {
 
         List<Quake> data = QuakeHttpHandler.fetchQuakeData();
         isLoadInBackgroundCanceled();
-        Log.d("QUAKE LOADER", "LOAD IN BACKGROUND");
         return data;
 
     }
@@ -49,14 +45,12 @@ public class QuakeLoader extends AsyncTaskLoader<List<Quake>> {
     public void deliverResult(List<Quake> data) {
 
         quakes = data;
-        Log.d("QUAKE LOADER", "DELIVER RESULT");
         super.deliverResult(data);
 
     }
 
     @Override
     public void onCanceled(@Nullable List<Quake> data) {
-        Log.d("QUAKE LOADER", "ON CANCELED");
         super.onCanceled(data);
     }
 }

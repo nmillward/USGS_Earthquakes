@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 
 import com.nicholasmillward.usgsearthquakes.data.api.QuakeLoader;
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
@@ -60,7 +59,6 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
     @Override
     public void detachView() {
 
-        Log.d("PRESENTER", "Detach View is called");
         this.view = null;
 
     }
@@ -115,7 +113,6 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
     public void onLoadFinished(@NonNull Loader<List<Quake>> loader, List<Quake> data) {
 
         view.stopLoadingIndicator();
-        Log.d("PRESENTER", "ON LOAD FINISHED");
 
         quakes = data;
 
@@ -123,7 +120,6 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
             view.showErrorMessage("Quake data unavailable");
         } else {
             view.showQuakes(data);
-            Log.d("PRESENTER", data.toString());
         }
 
     }
