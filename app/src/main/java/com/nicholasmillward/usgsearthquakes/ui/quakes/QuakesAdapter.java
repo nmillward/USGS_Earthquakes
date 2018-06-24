@@ -80,20 +80,27 @@ public class QuakesAdapter extends RecyclerView.Adapter<QuakesAdapter.QuakesView
     }
 
     public void replaceData(List<Quake> quakes) {
+
         this.quakes.clear();
         this.quakes.addAll(quakes);
         notifyDataSetChanged();
+
     }
 
     public Quake getItem(int position) {
+
         if (position < 0 || position >= quakes.size()) {
             throw new InvalidParameterException("Item no in array");
         }
+
         return quakes.get(position);
+
     }
 
     public void clearData() {
+
         quakes.clear();
         notifyDataSetChanged();
+
     }
 }

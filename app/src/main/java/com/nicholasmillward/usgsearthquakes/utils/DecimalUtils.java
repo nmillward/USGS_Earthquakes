@@ -9,8 +9,10 @@ import java.text.DecimalFormat;
 public class DecimalUtils {
 
     public static String doubleToString(double number) {
+
         DecimalFormat decimalFormat = new DecimalFormat("0.0");
         return decimalFormat.format(number);
+
     }
 
 }

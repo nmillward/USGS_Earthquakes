@@ -12,10 +12,12 @@ public class Quake {
     private String url;
 
     public Quake(double mag, String location, long time, String url) {
+
         this.mag = mag;
         this.location = location;
         this.time = time;
         this.url = url;
+
     }
 
     public double getMag() {

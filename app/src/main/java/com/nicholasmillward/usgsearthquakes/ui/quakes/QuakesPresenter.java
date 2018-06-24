@@ -29,73 +29,94 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
     private List<Quake> quakes;
 
     public QuakesPresenter(QuakesContract.View view, QuakeLoader loader, LoaderManager manager) {
+
         this.view = view;
         this.loader = loader;
         this.manager = manager;
+
     }
 
     @Override
     public void start() {
+
         if (manager.getLoader(QUAKE_LOADER_ID) == null) {
             manager.initLoader(QUAKE_LOADER_ID, null, this);
         } else {
             manager.restartLoader(QUAKE_LOADER_ID, null, this);
         }
+
     }
 
     @Override
     public void attachView(QuakesContract.View view) {
+
         this.view = view;
+
     }
 
     @Override
     public void detachView() {
+
         Log.d("PRESENTER", "Detach View is called");
         this.view = null;
+
     }
 
     @Override
     public void loadQuakes(boolean remoteRequired) {
+
         view.clearQuakes();
+
         if (remoteRequired) {
             loader.forceLoad();
         } else {
             view.showQuakes(quakes);
         }
+
     }
 
     @Override
     public void handleNetworkLoss() {
+
         if (quakes != null) {
             view.showQuakes(quakes);
         }
+
         view.stopLoadingIndicator();
         view.showErrorMessage("No network connection");
+
     }
 
     public void itemClicked(Quake quake) {
+
         view.showQuakeDetails(quake);
+
     }
 
     @NonNull
     @Override
     public Loader<List<Quake>> onCreateLoader(int id, @Nullable Bundle args) {
+
         view.showLoadingIndicator();
         return loader;
+
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Quake>> loader, List<Quake> data) {
+
         view.stopLoadingIndicator();
         Log.d("PRESENTER", "ON LOAD FINISHED");
 
         quakes = data;
+
         if (quakes == null) {
             view.showErrorMessage("Quake data unavailable");
         } else {
             view.showQuakes(data);
             Log.d("PRESENTER", data.toString());
         }
+
     }
 
     @Override

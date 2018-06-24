@@ -32,6 +32,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quakes);
 
@@ -45,22 +46,28 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         if (!isOnline()) {
             presenter.handleNetworkLoss();
         }
+
     }
 
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
         presenter.detachView();
+
     }
 
     private void setupPresenter() {
+
         presenter = new QuakesPresenter(this, new QuakeLoader(getApplicationContext()),
                 getSupportLoaderManager());
         presenter.attachView(this);
         presenter.start();
+
     }
 
     private void setupWidgets() {
+
         adapter = new QuakesAdapter(new ArrayList<Quake>(), new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -82,19 +89,25 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
                 presenter.loadQuakes(true);
             }
         });
+
     }
 
     private boolean isOnline() {
+
         return NetworkUtils.isNetworkAvailable(this);
+
     }
 
     @Override
     public void showQuakes(List<Quake> quakes) {
+
         adapter.replaceData(quakes);
+
     }
 
     @Override
     public void showErrorMessage(String error) {
+
         Snackbar snackbar = Snackbar.make(constraintLayout, error, Snackbar.LENGTH_INDEFINITE)
                 .setAction("RETRY", new View.OnClickListener() {
                     @Override
@@ -109,32 +122,41 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         snackbar.getView().setBackgroundResource(android.R.color.holo_red_light);
         snackbar.setActionTextColor(getResources().getColor(android.R.color.white));
         snackbar.show();
+
     }
 
     @Override
     public void showQuakeDetails(Quake quake) {
+
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(quake.getUrl()));
         startActivity(intent);
+
     }
 
     @Override
     public void showLoadingIndicator() {
+
         if (!refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(true);
         }
+
     }
 
     @Override
     public void stopLoadingIndicator() {
+
         if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
+
     }
 
     @Override
     public void clearQuakes() {
+
         adapter.clearData();
+
     }
 
 }
