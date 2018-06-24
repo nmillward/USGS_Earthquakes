@@ -23,15 +23,12 @@ import java.util.List;
 
 public class QuakesActivity extends AppCompatActivity implements QuakesContract.View {
 
-    private static final String TAG = QuakesActivity.class.getSimpleName();
-
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private ConstraintLayout constraintLayout;
 
     private QuakesAdapter adapter;
     private QuakesPresenter presenter;
-    private QuakeLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +45,22 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         if (!isOnline()) {
             presenter.handleNetworkLoss();
         }
-
-        // TODO: check savedInstanceState
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.start();
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 
     private void setupPresenter() {
-        loader = new QuakeLoader(getApplicationContext());
-
-        presenter = new QuakesPresenter(this, loader, getSupportLoaderManager());
+        presenter = new QuakesPresenter(this, new QuakeLoader(getApplicationContext()),
+                getSupportLoaderManager());
         presenter.attachView(this);
+        presenter.start();
     }
 
     private void setupWidgets() {
-
         adapter = new QuakesAdapter(new ArrayList<Quake>(), new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -88,7 +82,6 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
                 presenter.loadQuakes(true);
             }
         });
-
     }
 
     private boolean isOnline() {
@@ -141,7 +134,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     @Override
     public void clearQuakes() {
-
+        adapter.clearData();
     }
 
 }

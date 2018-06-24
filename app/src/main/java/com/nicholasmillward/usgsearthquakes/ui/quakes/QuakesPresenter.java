@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Created by nmillward on 6/21/18.
- *
+ * <p>
  * reference: https://github.com/googlesamples/android-architecture/blob/deprecated-todo-mvp-loaders/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/tasks/TasksPresenter.java
  */
 
@@ -36,7 +36,11 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
 
     @Override
     public void start() {
-        manager.initLoader(QUAKE_LOADER_ID, null, this);
+        if (manager.getLoader(QUAKE_LOADER_ID) == null) {
+            manager.initLoader(QUAKE_LOADER_ID, null, this);
+        } else {
+            manager.restartLoader(QUAKE_LOADER_ID, null, this);
+        }
     }
 
     @Override
@@ -45,10 +49,16 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
     }
 
     @Override
+    public void detachView() {
+        Log.d("PRESENTER", "Detach View is called");
+        this.view = null;
+    }
+
+    @Override
     public void loadQuakes(boolean remoteRequired) {
+        view.clearQuakes();
         if (remoteRequired) {
             loader.forceLoad();
-            Log.d("PRESENTER", "Fresh data requested");
         } else {
             view.showQuakes(quakes);
         }

@@ -25,6 +25,7 @@ public interface QuakesContract {
 
         void start();
         void attachView(T view);
+        void detachView();
         void loadQuakes(boolean remoteRequired);
         void handleNetworkLoss();
 
