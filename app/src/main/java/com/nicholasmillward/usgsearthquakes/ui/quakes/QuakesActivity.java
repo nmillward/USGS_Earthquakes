@@ -43,7 +43,9 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         setupPresenter();
         setupWidgets();
 
-        if (!isOnline()) {
+        if (isOnline()) {
+            presenter.start();
+        } else {
             presenter.handleNetworkLoss();
         }
 
@@ -62,7 +64,6 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         presenter = new QuakesPresenter(this, new QuakeLoader(getApplicationContext()),
                 getSupportLoaderManager());
         presenter.attachView(this);
-        presenter.start();
 
     }
 
@@ -86,7 +87,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.loadQuakes(true);
+                getFreshData();
             }
         });
 
@@ -95,6 +96,18 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
     private boolean isOnline() {
 
         return NetworkUtils.isNetworkAvailable(this);
+
+    }
+
+    private void getFreshData() {
+
+        if (isOnline() && presenter.isManagerAvailable()) {
+            presenter.loadQuakes(true);
+        } else if (isOnline()) {
+            presenter.start();
+        } else {
+            presenter.handleNetworkLoss();
+        }
 
     }
 
@@ -112,11 +125,7 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
                 .setAction("RETRY", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (isOnline()) {
-                            presenter.loadQuakes(true);
-                        } else {
-                            presenter.handleNetworkLoss();
-                        }
+                        getFreshData();
                     }
                 });
         snackbar.getView().setBackgroundResource(android.R.color.holo_red_light);

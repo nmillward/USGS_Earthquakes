@@ -93,6 +93,12 @@ public class QuakesPresenter implements QuakesContract.Presenter<QuakesContract.
 
     }
 
+    public boolean isManagerAvailable() {
+
+        return manager.getLoader(QUAKE_LOADER_ID) == null;
+
+    }
+
     @NonNull
     @Override
     public Loader<List<Quake>> onCreateLoader(int id, @Nullable Bundle args) {
