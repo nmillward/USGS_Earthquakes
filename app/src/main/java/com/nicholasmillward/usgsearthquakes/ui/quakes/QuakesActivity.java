@@ -139,7 +139,8 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(quake.getUrl()));
-        startActivity(intent);
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
 
     }
 
