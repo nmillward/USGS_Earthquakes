@@ -1,4 +1,4 @@
-package com.nicholasmillward.usgsearthquakes.data.api;
+package com.nicholasmillward.usgsearthquakes.data.source;
 
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 

@@ -13,7 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.nicholasmillward.usgsearthquakes.R;
-import com.nicholasmillward.usgsearthquakes.data.api.QuakeLoader;
+import com.nicholasmillward.usgsearthquakes.data.source.QuakeLoader;
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 import com.nicholasmillward.usgsearthquakes.utils.ItemClickListener;
 import com.nicholasmillward.usgsearthquakes.utils.NetworkUtils;

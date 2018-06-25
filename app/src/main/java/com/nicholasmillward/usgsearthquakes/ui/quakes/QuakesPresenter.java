@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
-import com.nicholasmillward.usgsearthquakes.data.api.QuakeLoader;
+import com.nicholasmillward.usgsearthquakes.data.source.QuakeLoader;
 import com.nicholasmillward.usgsearthquakes.data.model.Quake;
 
 import java.util.List;
