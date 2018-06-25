@@ -101,10 +101,12 @@ public class QuakesActivity extends AppCompatActivity implements QuakesContract.
 
     private void getFreshData() {
 
-        if (isOnline() && presenter.isManagerAvailable()) {
-            presenter.loadQuakes(true);
-        } else if (isOnline()) {
-            presenter.start();
+        if (isOnline()) {
+            if (presenter.isManagerAvailable()) {
+                presenter.loadQuakes(true);
+            } else {
+                presenter.start();
+            }
         } else {
             presenter.handleNetworkLoss();
         }
