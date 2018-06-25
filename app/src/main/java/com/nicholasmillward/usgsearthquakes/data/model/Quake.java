@@ -24,32 +24,16 @@ public class Quake {
         return mag;
     }
 
-    public void setMag(double mag) {
-        this.mag = mag;
-    }
-
     public String getLocation() {
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public long getTime() {
         return time;
     }
 
-    public void setTime(long time) {
-        this.time = time;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     @Override
